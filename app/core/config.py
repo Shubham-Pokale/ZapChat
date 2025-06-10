@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
-from pydantic import PostgresDsn, field_validator
+from pydantic import field_validator, FieldValidationInfo
+from pydantic.networks import PostgresDsn
 from typing import Optional, Dict, Any
 import logging
 
@@ -11,6 +12,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
+    PORT_NO : int = 5432
     DATABASE_URL: Optional[PostgresDsn] = None
     SECRET_KEY: str
     ALGORITHM: str
@@ -21,15 +23,17 @@ class Settings(BaseSettings):
     
 
     @field_validator("DATABASE_URL", mode="before")
-    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    @classmethod
+    def assemble_db_connection(cls, v: Optional[str], info: FieldValidationInfo) -> Any:
         if isinstance(v, str):
             return v
+        values = info.data
         return PostgresDsn.build(
             scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
+            username=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_SERVER"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
+            path=values.get("POSTGRES_DB") or ""
         )
 
     class Config:

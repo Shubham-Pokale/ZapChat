@@ -115,52 +115,52 @@ A modern, scalable real-time chat application built with FastAPI, WebSockets, an
 
     Run the test suite with: pytest
 
-Deployment
+###Deployment
 The application can be deployed using:
 
-Docker + Docker Compose
+ - Docker + Docker Compose
 
-Kubernetes
+ - Kubernetes
 
-Cloud platforms (AWS, GCP, Azure)
+ - Cloud platforms (AWS, GCP, Azure)
 
-Platform-as-a-Service (Render, Heroku)
+ - Platform-as-a-Service (Render, Heroku)
 
-Documentation
+###Documentation
 API documentation is automatically available at:
 
-Swagger UI: /docs
+ - Swagger UI: /docs
 
-ReDoc: /redoc
+ - ReDoc: /redoc
 
-Contributing
+ ###Contributing
 
- -Fork the project
+ - Fork the project
 
- -Create your feature branch (git checkout -b feature/AmazingFeature)
+ - Create your feature branch (git checkout -b feature/AmazingFeature)
 
- -Commit your changes (git commit -m 'Add some AmazingFeature')
+ - Commit your changes (git commit -m 'Add some AmazingFeature')
 
- -Push to the branch (git push origin feature/AmazingFeature)
+ - Push to the branch (git push origin feature/AmazingFeature)
 
- -Open a Pull Request
+ - Open a Pull Request
 
 ###Concepts Covered
 
 Backend Development
- -REST API design
+ - REST API design
 
- -WebSocket implementation
+ - WebSocket implementation
 
- -Database modeling
+ - Database modeling
 
- -Authentication/authorization
+ - Authentication/authorization
 
- -Middleware implementation
+ - Middleware implementation
 
- -Error handling
+ - Error handling
 
- -Logging
+ - Logging
 
- -Testing
+ - Testing
 

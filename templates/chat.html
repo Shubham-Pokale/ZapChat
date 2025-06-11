@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic Chat</title>
+</head>
+<body>
+    <h1>FastAPI Chat Demo</h1>
+    <div id="messages"></div>
+    <input type="text" id="message">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const clientId = Math.random().toString(36).substring(2, 10)
+        const ws = new WebSocket(`ws://${window.location.host}/api/v1/chat/ws/${clientId}`)
+        
+        ws.onmessage = (event) => {
+            const messages = document.getElementById('messages')
+            messages.innerHTML += `<p>${event.data}</p>`
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message')
+            ws.send(input.value)
+            input.value = ''
+        }
+    </script>
+</body>
+</html>

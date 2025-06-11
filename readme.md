@@ -96,7 +96,7 @@ A modern, scalable real-time chat application built with FastAPI, WebSockets, an
 ### Installation
 1. Clone the repository
   
-   git clone https://github.com/yourusername/real-time-chat.git
+   git clone https://github.com/Shubham-Pokale/ZapChat.git
    cd real-time-chat
 
 2. Set up environment
@@ -134,31 +134,33 @@ Swagger UI: /docs
 ReDoc: /redoc
 
 Contributing
-Fork the project
 
-Create your feature branch (git checkout -b feature/AmazingFeature)
+ -Fork the project
 
-Commit your changes (git commit -m 'Add some AmazingFeature')
+ -Create your feature branch (git checkout -b feature/AmazingFeature)
 
-Push to the branch (git push origin feature/AmazingFeature)
+ -Commit your changes (git commit -m 'Add some AmazingFeature')
 
-Open a Pull Request
+ -Push to the branch (git push origin feature/AmazingFeature)
 
-Concepts Covered
+ -Open a Pull Request
+
+###Concepts Covered
+
 Backend Development
-REST API design
+ -REST API design
 
-WebSocket implementation
+ -WebSocket implementation
 
-Database modeling
+ -Database modeling
 
-Authentication/authorization
+ -Authentication/authorization
 
-Middleware implementation
+ -Middleware implementation
 
-Error handling
+ -Error handling
 
-Logging
+ -Logging
 
-Testing
+ -Testing
 

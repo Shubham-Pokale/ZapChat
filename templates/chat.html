@@ -1,27 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Basic Chat</title>
+    <title>Authenticated Chat</title>
 </head>
 <body>
-    <h1>FastAPI Chat Demo</h1>
-    <div id="messages"></div>
-    <input type="text" id="message">
-    <button onclick="sendMessage()">Send</button>
+    <div id="auth-section">
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+    
+    <div id="chat-section" style="display:none">
+        <h2>Welcome <span id="current-user"></span>!</h2>
+        <div id="messages"></div>
+        <input type="text" id="message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
 
     <script>
-        const clientId = Math.random().toString(36).substring(2, 10)
-        const ws = new WebSocket(`ws://${window.location.host}/api/v1/chat/ws/${clientId}`)
-        
-        ws.onmessage = (event) => {
-            const messages = document.getElementById('messages')
-            messages.innerHTML += `<p>${event.data}</p>`
+        let ws;
+        let currentUser;
+        let authToken;
+
+        async function login() {
+            const formData = new FormData();
+            formData.append('username', document.getElementById('username').value);
+            formData.append('password', document.getElementById('password').value);
+
+            const response = await fetch('/api/v1/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData)
+            });
+            
+            if (!response.ok) {
+                alert('Login failed. Please check your credentials.');
+                return;
+            }
+            
+            const data = await response.json();
+            authToken = data.access_token;
+            currentUser = document.getElementById('username').value;
+            
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('chat-section').style.display = 'block';
+            document.getElementById('current-user').textContent = currentUser;
+            
+            connectWebSocket();
+        }
+
+        function connectWebSocket() {
+            ws = new WebSocket(`ws://localhost:8000/api/v1/chat/ws?token=${authToken}`);
+            
+            ws.onmessage = (event) => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML += `<p>${event.data}</p>`;
+            };
         }
 
         function sendMessage() {
-            const input = document.getElementById('message')
-            ws.send(input.value)
-            input.value = ''
+            const input = document.getElementById('message');
+            ws.send(input.value);
+            input.value = '';
         }
     </script>
 </body>
